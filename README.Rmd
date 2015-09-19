@@ -15,6 +15,8 @@ knitr::opts_chunk$set(
 )
 ```
 
+![](asam.png)
+
 `asam` is an R package providing tools to access, download, update, process and visualize [Anti-shipping Activity Messages](http://msi.nga.mil/NGAPortal/MSI.portal?_nfpb=true&_pageLabel=msi_portal_page_65) (ASAM) Database Files
 
 Anti-shipping Activity Messages (ASAM) include the locations and
@@ -89,7 +91,7 @@ pirates <- subset(asam_shp,
 
 *and plot them*
 
-```{r map, fig.width=10, fig.height=3.5}
+```{r map, fig.width=10, fig.height=4.5}
 subregions_map <- fortify(subregions)
 world <- map_data("world")
 pirate_pts <- data.frame(pirates)
