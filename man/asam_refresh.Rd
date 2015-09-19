@@ -2,13 +2,24 @@
 % Please edit documentation in R/refresh.r
 \name{asam_refresh}
 \alias{asam_refresh}
-\title{Refresh ASAM database}
+\title{Refresh ASAM database
+
+The \code{asam} pacakge comes with a snapshot of the official ASAM
+database. This database is updated daily by the National Geospatial-Intelligence
+Agency (NGIA) and this function provides a simple means to refresh it.}
 \usage{
 asam_refresh()
+}
+\value{
+(invisible) \code{TRUE} or \code{FALSE} depending on the success of
+        the retrieval.
 }
 \description{
 \code{asam_refresh} will fetch the latest (the files are udated daily)
              ASAM shapefile database and overwrite the one installed with the package
              (or previously updated).
+}
+\examples{
+asam_refresh()
 }
 

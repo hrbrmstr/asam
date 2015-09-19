@@ -40,18 +40,62 @@ packageVersion("asam")
 library(asam)
 library(testthat)
 library(sp)
+library(ggplot2)
+library(ggthemes)
+#> Warning: replacing previous import by 'grid::arrow' when loading 'ggthemes'
+#> Warning: replacing previous import by 'grid::unit' when loading 'ggthemes'
+#> Warning: replacing previous import by 'scales::alpha' when loading 'ggthemes'
 
 date()
-#> [1] "Sat Sep 19 13:39:31 2015"
+#> [1] "Sat Sep 19 14:30:56 2015"
+```
 
+*See the subregion map*
+
+``` r
 subregions <- asam_subregions()
 plot(subregions)
 ```
 
-<img src="README-unnamed-chunk-5-1.png" title="" alt="" width="672" />
+<img src="README-unnamed-chunk-6-1.png" title="" alt="" width="672" />
+
+*Find all the incidents by pirates this year*
 
 ``` r
+data(asam_shp)
+pirates <- subset(asam_shp,
+                  grepl("pirate", Aggressor, ignore.case=TRUE) &
+                  format(DateOfOcc, "%Y") == "2015")
+```
 
+*and plot them*
+
+``` r
+subregions_map <- fortify(subregions)
+#> Regions defined for each Polygons
+world <- map_data("world")
+pirate_pts <- data.frame(pirates)
+
+gg <- ggplot()
+gg <- gg + geom_map(data=world, map=world,
+                    aes(x=long, y=lat, map_id=region),
+                    color="black", fill="#e7e7e7", size=0.15)
+gg <- gg + geom_map(data=subregions_map, map=subregions_map,
+                    aes(x=long, y=lat, map_id=id),
+                    color="white", fill="white", size=0.15, alpha=0)
+gg <- gg + geom_point(data=pirate_pts, color="black", fill="yellow", 
+                      aes(x=coords.x1, y=coords.x2), shape=21)
+gg <- gg + xlim(-170, 170)
+gg <- gg + ylim(-58, 75)
+gg <- gg + coord_map("mollweide")
+gg <- gg + theme_map()
+gg <- gg + theme(panel.background=element_rect(fill="steelblue"))
+gg
+```
+
+<img src="README-map-1.png" title="" alt="" width="960" />
+
+``` r
 test_dir("tests/")
 #> testthat results ========================================================================================================
 #> OK: 0 SKIPPED: 0 FAILED: 0
