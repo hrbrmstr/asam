@@ -1,0 +1,80 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-",
+  fig.retina=2
+)
+```
+
+`asam` is an R package providing tools to access, download, update, process and visualize [Anti-shipping Activity Messages](http://msi.nga.mil/NGAPortal/MSI.portal?_nfpb=true&_pageLabel=msi_portal_page_65) (ASAM) Database Files
+
+Anti-shipping Activity Messages (ASAM) include the locations and
+descriptive accounts of specific hostile acts against ships and mariners.
+The reports may be useful for recognition, prevention and avoidance of
+potential hostile activity. The 'asam' package provides a snapshot of the
+official ASAM database, utilities to update the local database and the
+official polygons defining the ASAM global regions and subregions.
+
+The following functions are implemented:
+
+- `asam_refresh`:	Refresh ASAM database
+- `asam_shp`:	ASAM (Anti-shipping Activity Messages) Data (shapefile)
+- `asam_subregions`:  Retrieve ASAM subregions polygons
+
+The following data sets are included:
+
+- `data(asam_shp)` : Snapshot of the ASAM dataset
+- `system.file("geojson/asam.geojson", package="asam")` : Official ASAM regions & subregions shapefile
+
+### News
+
+- Version 0.0.0.9000 released
+
+### Installation
+
+```{r eval=FALSE}
+devtools::install_github("hrbrmstr/asam")
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
+options(width=120)
+```
+
+### Usage
+
+```{r}
+library(asam)
+
+# current verison
+packageVersion("asam")
+
+```
+
+### Test Results
+
+```{r}
+library(asam)
+library(testthat)
+library(sp)
+
+date()
+
+subregions <- asam_subregions()
+plot(subregions)
+
+test_dir("tests/")
+```
+
+### Code of Conduct
+
+Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). 
+By participating in this project you agree to abide by its terms.

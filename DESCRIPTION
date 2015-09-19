@@ -1,8 +1,15 @@
 Package: asam
-Title: What the Package Does (one line, title case)
+Title: Access, Download, Update, Process and Visualize Anti-shipping Activity
+       Messages (ASAM) Database Files
 Version: 0.0.0.9000
 Authors@R: c(person("Bob", "Rudis", email = "bob@rudis.net", role = c("aut", "cre")))
-Description: What the package does (one paragraph).
+Description: Anti-shipping Activity Messages (ASAM) include the locations and
+    descriptive accounts of specific hostile acts against ships and mariners.
+    The reports may be useful for recognition, prevention and avoidance of
+    potential hostile activity. The 'asam' package provides a snapshot of the
+    official ASAM database, utilities to update the local database and the
+    official polygons defining the ASAM global regions and subregions.
 Depends: R (>= 3.2.1)
 License: MIT + file LICENSE
-LazyData: true
+Suggests: testthat, sp
+Import: rgdal
