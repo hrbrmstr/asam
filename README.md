@@ -1,4 +1,6 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+![](asam.png)
+
 `asam` is an R package providing tools to access, download, update, process and visualize [Anti-shipping Activity Messages](http://msi.nga.mil/NGAPortal/MSI.portal?_nfpb=true&_pageLabel=msi_portal_page_65) (ASAM) Database Files
 
 Anti-shipping Activity Messages (ASAM) include the locations and descriptive accounts of specific hostile acts against ships and mariners. The reports may be useful for recognition, prevention and avoidance of potential hostile activity. The 'asam' package provides a snapshot of the official ASAM database, utilities to update the local database and the official polygons defining the ASAM global regions and subregions.
@@ -47,7 +49,7 @@ library(ggthemes)
 #> Warning: replacing previous import by 'scales::alpha' when loading 'ggthemes'
 
 date()
-#> [1] "Sat Sep 19 14:30:56 2015"
+#> [1] "Sat Sep 19 14:51:00 2015"
 ```
 
 *See the subregion map*
