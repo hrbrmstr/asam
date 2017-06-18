@@ -1,8 +1,8 @@
 Package: asam
 Title: Access, Download, Update, Process and Visualize Anti-shipping Activity
        Messages (ASAM) Database Files
-Version: 0.0.0.9000
-Authors@R: c(person("Bob", "Rudis", email = "bob@rudis.net", role = c("aut", "cre")))
+Version: 0.1.0
+Authors@R: c(person("Bob", "Rudis", email = "bob@rud.is", role = c("aut", "cre")))
 Description: Anti-shipping Activity Messages (ASAM) include the locations and
     descriptive accounts of specific hostile acts against ships and mariners.
     The reports may be useful for recognition, prevention and avoidance of
@@ -11,5 +11,6 @@ Description: Anti-shipping Activity Messages (ASAM) include the locations and
     official polygons defining the ASAM global regions and subregions.
 Depends: R (>= 3.2.0)
 License: MIT + file LICENSE
-Suggests: testthat, sp
-Import: rgdal
+Suggests: testthat, sf
+Import: sf, rgdal
+RoxygenNote: 6.0.1

@@ -1,3 +1,4 @@
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 ![](asam.png)
 
@@ -8,17 +9,13 @@ Anti-shipping Activity Messages (ASAM) include the locations and descriptive acc
 The following functions are implemented:
 
 -   `asam_refresh`: Refresh ASAM database
--   `asam_shp`: ASAM (Anti-shipping Activity Messages) Data (shapefile)
--   `asam_subregions`: Retrieve ASAM subregions polygons
+-   `asam_subregions`: Retrieve ASAM subregions polygons as either a `SpatialPolygonsDataFrame` or simple features collection
 
 The following data sets are included:
 
--   `data(asam_shp)` : Snapshot of the ASAM dataset
+-   `data(asam_shp)` : Snapshot of the ASAM dataset (spatial/shapefile)
+-   `data(asam_sf)` : Snapshot of the ASAM dataset (simple features collection)
 -   `system.file("geojson/asam.geojson", package="asam")` : Official ASAM regions & subregions shapefile
-
-### News
-
--   Version 0.0.0.9000 released
 
 ### Installation
 
@@ -33,7 +30,7 @@ library(asam)
 
 # current verison
 packageVersion("asam")
-#> [1] '0.0.0.9000'
+#> [1] '0.1.0'
 ```
 
 ### Test Results
@@ -44,12 +41,11 @@ library(testthat)
 library(sp)
 library(ggplot2)
 library(ggthemes)
-#> Warning: replacing previous import by 'grid::arrow' when loading 'ggthemes'
-#> Warning: replacing previous import by 'grid::unit' when loading 'ggthemes'
-#> Warning: replacing previous import by 'scales::alpha' when loading 'ggthemes'
+library(ggalt)
+library(tidyverse)
 
 date()
-#> [1] "Sat Sep 19 14:51:00 2015"
+#> [1] "Sun Jun 18 09:37:15 2017"
 ```
 
 *See the subregion map*
@@ -59,15 +55,35 @@ subregions <- asam_subregions()
 plot(subregions)
 ```
 
-<img src="README-unnamed-chunk-6-1.png" title="" alt="" width="672" />
+<img src="README-unnamed-chunk-6-1.png" width="672" />
 
 *Find all the incidents by pirates this year*
 
 ``` r
-data(asam_shp)
-pirates <- subset(asam_shp,
-                  grepl("pirate", Aggressor, ignore.case=TRUE) &
-                  format(DateOfOcc, "%Y") == "2015")
+data(asam_sf)
+
+filter(asam_sf, grepl("(pira|rob|hie|band|aila|jack|trud)", 
+                      Aggressor, ignore.case=TRUE),
+          lubridate::year(DateOfOcc) == 2016) %>% 
+  pull(geometry) %>% 
+  as("Spatial") %>% 
+  as_data_frame() -> pirates
+
+pirates
+#> # A tibble: 473 x 2
+#>    coords.x1  coords.x2
+#>        <dbl>      <dbl>
+#>  1 105.16667   3.000000
+#>  2 116.80000  -1.466667
+#>  3 -77.18333 -12.016667
+#>  4 -75.55000  10.316667
+#>  5 -69.31667  19.200000
+#>  6 121.73333   5.883333
+#>  7 101.50000   1.683333
+#>  8 -65.43333  18.150000
+#>  9 101.48333   1.700000
+#> 10 112.50000  16.183333
+#> # ... with 463 more rows
 ```
 
 *and plot them*
@@ -76,34 +92,30 @@ pirates <- subset(asam_shp,
 subregions_map <- fortify(subregions)
 #> Regions defined for each Polygons
 world <- map_data("world")
-pirate_pts <- data.frame(pirates)
+#> 
+#> Attaching package: 'maps'
+#> The following object is masked from 'package:purrr':
+#> 
+#>     map
 
 gg <- ggplot()
-gg <- gg + geom_map(data=world, map=world,
+gg <- gg + geom_cartogram(data=world, map=world,
                     aes(x=long, y=lat, map_id=region),
                     color="black", fill="#e7e7e7", size=0.15)
-gg <- gg + geom_map(data=subregions_map, map=subregions_map,
+gg <- gg + geom_cartogram(data=subregions_map, map=subregions_map,
                     aes(x=long, y=lat, map_id=id),
                     color="white", fill="white", size=0.15, alpha=0)
-gg <- gg + geom_point(data=pirate_pts, color="black", fill="yellow", 
+gg <- gg + geom_point(data=pirates, color="black", fill="yellow", 
                       aes(x=coords.x1, y=coords.x2), shape=21)
 gg <- gg + xlim(-170, 170)
 gg <- gg + ylim(-58, 75)
-gg <- gg + coord_map("mollweide")
+gg <- gg + coord_proj("+proj=wintri")
 gg <- gg + theme_map()
 gg <- gg + theme(panel.background=element_rect(fill="steelblue"))
 gg
 ```
 
-<img src="README-map-1.png" title="" alt="" width="960" />
-
-``` r
-test_dir("tests/")
-#> testthat results ========================================================================================================
-#> OK: 0 SKIPPED: 0 FAILED: 0
-#> 
-#> DONE
-```
+<img src="README-map-1.png" width="960" />
 
 ### Code of Conduct
 
