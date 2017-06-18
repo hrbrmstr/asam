@@ -25,14 +25,17 @@ asam_refresh <- function() {
     extr_f <- unzip(tmp_f, overwrite=TRUE, exdir=dirname(tmp_f))
     layer <- gsub("\\..*$", "", basename(extr_f[1]))
 
-    asam_shp <- readOGR(grep("shp", extr_f, value=TRUE),
-                        layer, stringsAsFactors=FALSE, verbose=FALSE)
+    asam_shp <- rgdal::readOGR(grep("shp", extr_f, value=TRUE),
+                               layer, stringsAsFactors=FALSE, verbose=FALSE)
 
-    asam_shp@data$DateOfOcc <- as.Date(asam_shp@data$DateOfOcc,
-                                       "%Y/%m/%d")
+    asam_shp@data$DateOfOcc <- as.Date(asam_shp@data$DateOfOcc, "%Y/%m/%d")
 
-    save(asam_shp, file=system.file("data/asam_shp.rda",
-                                    package="asam"),
+    save(asam_shp, file=system.file("data/asam_shp.rda", package="asam"),
+         compress = 'xz')
+
+    asam_sf <- sf::read_sf(grep("shp", extr_f, value=TRUE), quiet=TRUE)
+
+    save(asam_sf, file=system.file("data/asam_sf.rda", package="asam"),
          compress = 'xz')
 
     invisible(TRUE)

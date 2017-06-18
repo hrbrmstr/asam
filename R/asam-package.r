@@ -3,5 +3,5 @@
 #' @name asam
 #' @docType package
 #' @author Bob Rudis (@@hrbrmstr)
-#' @import rgdal
+#' @import sf rgdal
 NULL

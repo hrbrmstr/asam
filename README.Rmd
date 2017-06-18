@@ -1,7 +1,7 @@
 ---
-output:
-  md_document:
-    variant: markdown_github
+output: rmarkdown::github_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -29,17 +29,13 @@ official polygons defining the ASAM global regions and subregions.
 The following functions are implemented:
 
 - `asam_refresh`:	Refresh ASAM database
-- `asam_shp`:	ASAM (Anti-shipping Activity Messages) Data (shapefile)
-- `asam_subregions`:  Retrieve ASAM subregions polygons
+- `asam_subregions`:  Retrieve ASAM subregions polygons as either a `SpatialPolygonsDataFrame` or simple features collection
 
 The following data sets are included:
 
-- `data(asam_shp)` : Snapshot of the ASAM dataset
+- `data(asam_shp)` : Snapshot of the ASAM dataset (spatial/shapefile)
+- `data(asam_sf)` : Snapshot of the ASAM dataset (simple features collection)
 - `system.file("geojson/asam.geojson", package="asam")` : Official ASAM regions & subregions shapefile
-
-### News
-
-- Version 0.0.0.9000 released
 
 ### Installation
 
@@ -63,12 +59,14 @@ packageVersion("asam")
 
 ### Test Results
 
-```{r}
+```{r message=FALSE}
 library(asam)
 library(testthat)
 library(sp)
 library(ggplot2)
 library(ggthemes)
+library(ggalt)
+library(tidyverse)
 
 date()
 ```
@@ -83,39 +81,41 @@ plot(subregions)
 *Find all the incidents by pirates this year*
 
 ```{r}
-data(asam_shp)
-pirates <- subset(asam_shp,
-                  grepl("pirate", Aggressor, ignore.case=TRUE) &
-                  format(DateOfOcc, "%Y") == "2015")
+data(asam_sf)
+
+filter(asam_sf, grepl("(pira|rob|hie|band|aila|jack|trud)", 
+                      Aggressor, ignore.case=TRUE),
+          lubridate::year(DateOfOcc) == 2016) %>% 
+  pull(geometry) %>% 
+  as("Spatial") %>% 
+  as_data_frame() -> pirates
+
+pirates
 ```
 
 *and plot them*
 
-```{r map, fig.width=10, fig.height=4.5}
+```{r map, fig.width=10, fig.height=4.5, warning=FALSE}
 subregions_map <- fortify(subregions)
 world <- map_data("world")
-pirate_pts <- data.frame(pirates)
 
 gg <- ggplot()
-gg <- gg + geom_map(data=world, map=world,
+gg <- gg + geom_cartogram(data=world, map=world,
                     aes(x=long, y=lat, map_id=region),
                     color="black", fill="#e7e7e7", size=0.15)
-gg <- gg + geom_map(data=subregions_map, map=subregions_map,
+gg <- gg + geom_cartogram(data=subregions_map, map=subregions_map,
                     aes(x=long, y=lat, map_id=id),
                     color="white", fill="white", size=0.15, alpha=0)
-gg <- gg + geom_point(data=pirate_pts, color="black", fill="yellow", 
+gg <- gg + geom_point(data=pirates, color="black", fill="yellow", 
                       aes(x=coords.x1, y=coords.x2), shape=21)
 gg <- gg + xlim(-170, 170)
 gg <- gg + ylim(-58, 75)
-gg <- gg + coord_map("mollweide")
+gg <- gg + coord_proj("+proj=wintri")
 gg <- gg + theme_map()
 gg <- gg + theme(panel.background=element_rect(fill="steelblue"))
 gg
 ```
 
-```{r}
-test_dir("tests/")
-```
 
 ### Code of Conduct
 
