@@ -4,7 +4,7 @@
 \name{asam_sf}
 \alias{asam_sf}
 \title{ASAM (Anti-shipping Activity Messages) Data (simple features)}
-\format{A simple feature collection with 7,767 features and 12 fields}
+\format{A simple feature collection with 8,003 features and 12 fields}
 \usage{
 data(asam_sf)
 }
@@ -34,7 +34,7 @@ This dataset contains data from the National Geospatial
 }
 }
 \note{
-Last updated 2017-06-18
+Last updated 2018-09-23
 }
 \references{
 \href{http://msi.nga.mil/NGAPortal/MSI.portal?_nfpb=true&_pageLabel=msi_portal_page_65}{ASAM home}
