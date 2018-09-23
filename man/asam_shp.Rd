@@ -4,7 +4,7 @@
 \name{asam_shp}
 \alias{asam_shp}
 \title{ASAM (Anti-shipping Activity Messages) Data (shapefile)}
-\format{A \code{SpatialPointsDataFrame} with 12 variables and 7,767 observations}
+\format{A \code{SpatialPointsDataFrame} with 12 variables and 8,003 observations}
 \usage{
 data(asam_shp)
 }
@@ -34,7 +34,7 @@ This dataset contains data from the National Geospatial
 }
 }
 \note{
-Last updated 2017-06-17
+Last updated 2018-09-23
 }
 \references{
 \href{http://msi.nga.mil/NGAPortal/MSI.portal?_nfpb=true&_pageLabel=msi_portal_page_65}{ASAM home}

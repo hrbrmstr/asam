@@ -28,8 +28,8 @@
 #' @seealso \code{\link{asam_refresh}} for updating the dataset,
 #' @references \href{http://msi.nga.mil/NGAPortal/MSI.portal?_nfpb=true&_pageLabel=msi_portal_page_65}{ASAM home}
 #' @usage data(asam_shp)
-#' @note Last updated 2017-06-17
-#' @format A \code{SpatialPointsDataFrame} with 12 variables and 7,767 observations
+#' @note Last updated 2018-09-23
+#' @format A \code{SpatialPointsDataFrame} with 12 variables and 8,003 observations
 NULL
 
 
@@ -63,6 +63,6 @@ NULL
 #' @seealso \code{\link{asam_refresh}} for updating the dataset,
 #' @references \href{http://msi.nga.mil/NGAPortal/MSI.portal?_nfpb=true&_pageLabel=msi_portal_page_65}{ASAM home}
 #' @usage data(asam_sf)
-#' @note Last updated 2017-06-18
-#' @format A simple feature collection with 7,767 features and 12 fields
+#' @note Last updated 2018-09-23
+#' @format A simple feature collection with 8,003 features and 12 fields
 NULL
