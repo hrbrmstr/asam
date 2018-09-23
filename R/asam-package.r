@@ -16,4 +16,5 @@
 #' @docType package
 #' @author Bob Rudis (bob@@rud.is)
 #' @import sf rgdal
+#' @importFrom utils download.file unzip
 NULL

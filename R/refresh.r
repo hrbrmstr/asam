@@ -11,8 +11,9 @@
 #'         the retrieval.
 #' @export
 #' @rdname asam_refresh
-#' @examples
+#' @examples \dontrun{
 #' asam_refresh()
+#' }
 asam_refresh <- function() {
 
   tryCatch({

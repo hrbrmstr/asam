@@ -30,6 +30,8 @@ indicates the geographic region while the first two digits of all five-digit
 chart numbers refer to the geographic subregion.
 }
 \examples{
+\dontrun{
 plot(asam_subregions())
 plot(asam_subregions(FALSE))
+}
 }

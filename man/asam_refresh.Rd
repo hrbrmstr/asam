@@ -20,5 +20,7 @@ asam_refresh()
              (or previously updated).
 }
 \examples{
+\dontrun{
 asam_refresh()
+}
 }

@@ -19,10 +19,11 @@
 #' @param sp if `TRUE` then return a `Spatial` object otherwise return a simple feature collection
 #' @return \code{SpatialPolygonsDataFrame}
 #' @export
-#' @examples
+#' @examples \dontrun{
 #' plot(asam_subregions())
 #
 #' plot(asam_subregions(FALSE))
+#' }
 asam_subregions <- function(sp = TRUE) {
 
   if (sp) {
