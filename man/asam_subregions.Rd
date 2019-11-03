@@ -4,13 +4,7 @@
 \alias{asam_subregions}
 \title{Retrieve ASAM subregions polygons}
 \usage{
-asam_subregions(sp = TRUE)
-}
-\arguments{
-\item{sp}{if \code{TRUE} then return a \code{Spatial} object otherwise return a simple feature collection}
-}
-\value{
-\code{SpatialPolygonsDataFrame}
+asam_subregions()
 }
 \description{
 Returns the official ASAM Subregions polygons as a \code{SpatialPolygonsDataFrame}
@@ -32,6 +26,5 @@ chart numbers refer to the geographic subregion.
 \examples{
 \dontrun{
 plot(asam_subregions())
-plot(asam_subregions(FALSE))
 }
 }

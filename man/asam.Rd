@@ -4,21 +4,22 @@
 \name{asam}
 \alias{asam}
 \alias{asam-package}
-\title{Access, download, update and work with Anti-shipping Activity Messages (ASAM)
-database files}
+\title{Read and work with Anti-shipping Activity Messages (ASAM) database files}
 \description{
 Anti-shipping Activity Messages ('ASAM') include the locations and
 descriptive accounts of specific hostile acts against ships and mariners.
 The reports may be useful for recognition, prevention and avoidance of
-potential hostile activity. A snapshot of the official 'ASAM' database is
-included along with utilities to update the local database and the
-official polygons defining the 'ASAM' global regions and subregions.
+potential hostile activity. Tools are provided to download the official 'ASAM'
+database along with a geojson version of the official polygons defining the
+'ASAM' global regions and subregions. Data is from \url{https://msi.nga.mil/Piracy}
 }
-\details{
+\seealso{
+Useful links:
 \itemize{
-\item URL: \url{http://gitlab.com/hrbrmstr/asam}
-\item BugReports: \url{https://gitlab.com/hrbrmstr/asam/issues}
+  \item \url{http://gitlab.com/hrbrmstr/asam}
+  \item Report bugs at \url{https://gitlab.com/hrbrmstr/asam/issues}
 }
+
 }
 \author{
 Bob Rudis (bob@rud.is)

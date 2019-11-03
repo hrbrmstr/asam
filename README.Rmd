@@ -3,69 +3,46 @@ output: rmarkdown::github_document
 editor_options: 
   chunk_output_type: console
 ---
+```{r pkg-knitr-opts, include=FALSE}
+hrbrpkghelpr::global_opts()
+```
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
-```{r, echo = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "README-",
-  fig.retina=2
-)
+```{r badges, results='asis', echo=FALSE, cache=FALSE}
+hrbrpkghelpr::stinking_badges()
 ```
 
 ![](asam.png)
 
-`asam` is an R package providing tools to access, download, update, process and visualize [Anti-shipping Activity Messages](http://msi.nga.mil/NGAPortal/MSI.portal?_nfpb=true&_pageLabel=msi_portal_page_65) (ASAM) Database Files
+```{r description, results='asis', echo=FALSE, cache=FALSE}
+hrbrpkghelpr::yank_title_and_description()
+```
 
-Anti-shipping Activity Messages (ASAM) include the locations and
-descriptive accounts of specific hostile acts against ships and mariners.
-The reports may be useful for recognition, prevention and avoidance of
-potential hostile activity. The 'asam' package provides a snapshot of the
-official ASAM database, utilities to update the local database and the
-official polygons defining the ASAM global regions and subregions.
+## What's Inside The Tin
 
 The following functions are implemented:
 
-- `asam_refresh`:	Refresh ASAM database
-- `asam_subregions`:  Retrieve ASAM subregions polygons as either a `SpatialPolygonsDataFrame` or simple features collection
-
-The following data sets are included:
-
-- `data(asam_shp)` : Snapshot of the ASAM dataset (spatial/shapefile)
-- `data(asam_sf)` : Snapshot of the ASAM dataset (simple features collection)
-- `system.file("geojson/asam.geojson", package="asam")` : Official ASAM regions & subregions shapefile
-
-### Installation
-
-```{r eval=FALSE}
-devtools::install_github("hrbrmstr/asam")
+```{r ingredients, results='asis', echo=FALSE, cache=FALSE}
+hrbrpkghelpr::describe_ingredients()
 ```
 
-```{r echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
-options(width=120)
+## Installation
+
+```{r install-ex, results='asis', echo=FALSE, cache=FALSE}
+hrbrpkghelpr::install_block()
 ```
 
-### Usage
+## Usage
 
-```{r}
+```{r lib-ex}
 library(asam)
 
-# current verison
+# current version
 packageVersion("asam")
 
 ```
 
-### Test Results
-
-```{r message=FALSE}
+```{r libs}
 library(asam)
-library(testthat)
-library(sp)
-library(ggplot2)
-library(ggthemes)
-library(ggalt)
 library(tidyverse)
 
 date()
@@ -73,51 +50,31 @@ date()
 
 *See the subregion map*
 
-```{r}
+```{r subregions}
 subregions <- asam_subregions()
-plot(subregions)
+
+subregions
+
+suppressWarnings(plot(select(subregions, geometry)))
 ```
 
 *Find all the incidents by pirates this year*
 
 ```{r}
-data(asam_sf)
+asam <- read_asam()
 
-filter(asam_sf, grepl("(pira|rob|hie|band|aila|jack|trud)", 
-                      Aggressor, ignore.case=TRUE),
-          lubridate::year(DateOfOcc) == 2016) %>% 
-  pull(geometry) %>% 
-  as("Spatial") %>% 
-  as_data_frame() -> pirates
+asam
 
-pirates
+filter(asam, grepl("pirate", hostility, ignore.case=TRUE), lubridate::year(date) == lubridate::year(Sys.Date())) 
 ```
 
-*and plot them*
+## asam Metrics
 
-```{r map, fig.width=10, fig.height=4.5, warning=FALSE}
-subregions_map <- fortify(subregions)
-world <- map_data("world")
-
-gg <- ggplot()
-gg <- gg + geom_cartogram(data=world, map=world,
-                    aes(x=long, y=lat, map_id=region),
-                    color="black", fill="#e7e7e7", size=0.15)
-gg <- gg + geom_cartogram(data=subregions_map, map=subregions_map,
-                    aes(x=long, y=lat, map_id=id),
-                    color="white", fill="white", size=0.15, alpha=0)
-gg <- gg + geom_point(data=pirates, color="black", fill="yellow", 
-                      aes(x=coords.x1, y=coords.x2), shape=21)
-gg <- gg + xlim(-170, 170)
-gg <- gg + ylim(-58, 75)
-gg <- gg + coord_proj("+proj=wintri")
-gg <- gg + theme_map()
-gg <- gg + theme(panel.background=element_rect(fill="steelblue"))
-gg
+```{r cloc, echo=FALSE}
+cloc::cloc_pkg_md()
 ```
 
+## Code of Conduct
 
-### Code of Conduct
-
-Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). 
+Please note that this project is released with a Contributor Code of Conduct. 
 By participating in this project you agree to abide by its terms.

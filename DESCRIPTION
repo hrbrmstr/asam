@@ -1,7 +1,6 @@
 Package: asam
-Title: Access, Download, Update, Process and Visualize Anti-shipping Activity
-       Messages ('ASAM') Database Files
-Version: 0.1.0
+Title: Read and work with Anti-shipping Activity Messages (ASAM) database files
+Version: 0.2.0
 Authors@R: c(
       person("Bob", "Rudis", email = "bob@rud.is", role = c("aut", "cre"),
              comment = c(ORCID = "0000-0001-5670-2640"))
@@ -10,9 +9,9 @@ Maintainer: Bob Rudis <bob@rud.is>
 Description: Anti-shipping Activity Messages ('ASAM') include the locations and
     descriptive accounts of specific hostile acts against ships and mariners.
     The reports may be useful for recognition, prevention and avoidance of
-    potential hostile activity. A snapshot of the official 'ASAM' database is
-    included along with utilities to update the local database and the
-    official polygons defining the 'ASAM' global regions and subregions.
+    potential hostile activity. Tools are provided to download the official 'ASAM' 
+    database along with a geojson version of the official polygons defining the 
+    'ASAM' global regions and subregions. Data is from <https://msi.nga.mil/Piracy>
 URL: http://gitlab.com/hrbrmstr/asam
 BugReports: https://gitlab.com/hrbrmstr/asam/issues
 Depends: R (>= 3.2.0)
@@ -21,7 +20,9 @@ Suggests:
   testthat
 Imports: 
     sf, 
-    rgdal,
-    utils 
+    utils,
+    httr,
+    XML,
+    memoise
 Encoding: UTF-8
-RoxygenNote: 6.0.1.9000
+RoxygenNote: 6.1.1

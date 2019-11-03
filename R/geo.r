@@ -1,3 +1,7 @@
+.asam_subregions <- function() {
+  sf::st_read(system.file("geojson/asam.geojson", package="asam"), quiet = TRUE)
+}
+
 #' Retrieve ASAM subregions polygons
 #'
 #' Returns the official ASAM Subregions polygons as a \code{SpatialPolygonsDataFrame}
@@ -16,22 +20,8 @@
 #' chart numbers refer to the geographic subregion.
 #'
 #' @md
-#' @param sp if `TRUE` then return a `Spatial` object otherwise return a simple feature collection
-#' @return \code{SpatialPolygonsDataFrame}
 #' @export
 #' @examples \dontrun{
 #' plot(asam_subregions())
-#
-#' plot(asam_subregions(FALSE))
 #' }
-asam_subregions <- function(sp = TRUE) {
-
-  if (sp) {
-    rgdal::readOGR(system.file("geojson/asam.geojson", package="asam"),
-            "OGRGeoJSON", stringsAsFactors=FALSE, verbose=FALSE)
-  } else {
-    sf::st_read(system.file("geojson/asam.geojson", package="asam"))
-  }
-
-}
-
+asam_subregions <- memoise::memoise(.asam_subregions)
