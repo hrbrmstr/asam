@@ -5,7 +5,7 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 [![Signed
 by](https://img.shields.io/badge/Keybase-Verified-brightgreen.svg)](https://keybase.io/hrbrmstr)
 ![Signed commit
-%](https://img.shields.io/badge/Signed_Commits-25.0%25-lightgrey.svg)
+%](https://img.shields.io/badge/Signed_Commits-100%25-lightgrey.svg)
 [![Linux build
 Status](https://travis-ci.org/hrbrmstr/asam.svg?branch=master)](https://travis-ci.org/hrbrmstr/asam)
 [![Coverage
@@ -71,7 +71,7 @@ library(asam)
 library(tidyverse)
 
 date()
-## [1] "Sun Nov  3 16:11:50 2019"
+## [1] "Mon Nov  4 07:57:06 2019"
 ```
 
 *See the subregion map*
